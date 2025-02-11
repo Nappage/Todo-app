@@ -1,0 +1,57 @@
+name: バグ報告
+description: アプリケーションのバグを報告
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        バグの報告ありがとうございます。以下の情報を記入してください。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: バグの説明
+      description: バグの内容を簡潔に説明してください
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 再現手順
+      description: バグを再現する手順を記載してください
+      placeholder: |
+        1. '...' に移動
+        2. '....' をクリック
+        3. '....' までスクロール
+        4. エラーを確認
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待される動作
+      description: 正常な場合、どのような動作が期待されますか？
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: 使用ブラウザ
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - その他
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 補足情報
+      description: スクリーンショットや追加情報があれば記載してください
