@@ -28,12 +28,18 @@
 ### 3. Branch Protection Rules
 #### 設定手順
 1. リポジトリの"Settings" → "Branches"
-2. "Add branch protection rule"
-3. Branch name pattern: `main`
+2. "Add rule"をクリック
+3. 基本設定:
+   - Ruleset name: main protection
+   - Target branches: mainを設定
 4. 保護ルール:
-   - Require pull request reviews
+   - Require a pull request before merging
    - Require status checks to pass
-   - Include administrators
+   - Restrict deletions
+   - Block force pushes
+
+#### バイパス設定
+- Bypass listは空のままにする（管理者も含めてルールを適用）
 
 #### プッシュ制限
 - mainブランチへの直接プッシュ禁止
