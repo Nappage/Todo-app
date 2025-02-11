@@ -1,9 +1,4 @@
-{
-  `path`: `.github/workflows/ci.yml`,
-  `repo`: `Todo-app`,
-  `owner`: `Nappage`,
-  `branch`: `main`,
-  `content`: `name: CI
+name: CI
 
 on:
   push:
@@ -22,6 +17,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./`,
-  `message`: `ci: シンプルなデプロイワークフローに修正`
-}
+          publish_dir: ./
