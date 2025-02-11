@@ -1,111 +1,141 @@
-# 開発者ガイド
+# 開発ガイド
 
 ## 開発環境のセットアップ
 
-### 必要なツール
-- Node.js (v18以上)
-- Python (3.11以上)
-- Docker & Docker Compose
-- PostgreSQL (14以上)
+### 必要なもの
+- Webブラウザ（Chrome推奨）
+- GitHubアカウント
 
-### 環境構築手順
+### 開発環境の選択肢
 
-1. リポジトリのクローン
-```bash
-git clone https://github.com/Nappage/Todo-app.git
-cd Todo-app
+1. GitHub Codespaces（推奨）
+   ```
+   1. リポジトリページで [Code] > [Open with Codespaces]
+   2. [New codespace] を選択
+   3. ブラウザ上でVS Code環境が起動
+   ```
+
+2. GitHub Web Editor
+   ```
+   1. リポジトリページで [.] キーを押す
+   2. ブラウザ上でエディタが起動
+   ```
+
+3. ローカル開発（オプション）
+   ```
+   1. Live Serverなどの簡易HTTPサーバー
+   2. モダンなWebブラウザ
+   ```
+
+## プロジェクト構造
+
+```
+.
+├── README.md
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   ├── app.js
+│   ├── storage.js
+│   └── ui.js
+└── docs/
+    ├── 01_project_overview.md
+    ├── 02_requirements.md
+    └── ...
 ```
 
-2. フロントエンド環境構築
-```bash
-cd frontend
-npm install
-cp .env.example .env
-```
+## 開発の始め方
 
-3. バックエンド環境構築
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-cp .env.example .env
-```
+1. コードの編集
+   ```
+   - HTML/CSS/JavaScriptファイルを直接編集
+   - 変更はリアルタイムでプレビュー可能
+   ```
 
-## Dockerの使用方法
+2. 変更の保存
+   ```
+   - ファイルを保存
+   - 変更内容をコミット
+   - プルリクエストを作成
+   ```
 
-### 開発環境の起動
-```bash
-docker-compose up -d
-```
-
-### コンテナの確認
-```bash
-docker-compose ps
-```
-
-### ログの確認
-```bash
-docker-compose logs -f [service-name]
-```
-
-## ローカルでの起動方法
-
-### フロントエンド
-```bash
-cd frontend
-npm run dev
-```
-
-### バックエンド
-```bash
-cd backend
-uvicorn main:app --reload
-```
-
-## テストの実行方法
-
-### フロントエンドテスト
-```bash
-cd frontend
-npm test
-```
-
-### バックエンドテスト
-```bash
-cd backend
-pytest
-```
+3. デプロイ
+   ```
+   - mainブランチへのマージでGitHub Actionsが自動実行
+   - GitHub Pagesに自動デプロイ
+   ```
 
 ## デバッグ方法
 
-### フロントエンド
-1. Chrome DevTools の使用
-2. React Developer Tools の活用
-3. Redux DevTools でのステート確認
+### ブラウザ開発者ツール
+1. Console
+   ```javascript
+   console.log('デバッグ情報');
+   console.table(todos);
+   ```
 
-### バックエンド
-1. VSCode デバッガーの設定
-```json
-{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Python: FastAPI",
-      "type": "python",
-      "request": "launch",
-      "module": "uvicorn",
-      "args": ["main:app", "--reload"],
-      "jinja": true
-    }
-  ]
-}
-```
+2. Elements
+   - HTML構造の確認
+   - CSSスタイルの確認
 
-2. ログの設定
-```python
-import logging
+3. Application
+   - LocalStorageの内容確認
+   - キャッシュの確認
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
-```
+### GitHub Pages
+- 開発中のプレビュー確認
+- デプロイ状態の確認
+
+## テスト
+
+### 手動テスト
+1. 機能テスト
+   - タスクの追加
+   - タスクの編集
+   - タスクの削除
+   - 完了状態の切り替え
+
+2. 表示テスト
+   - レスポンシブ対応
+   - クロスブラウザ
+   - アクセシビリティ
+
+## よくある問題と解決方法
+
+1. GitHub Pages未更新
+   ```
+   - Actionsタブでデプロイ状況を確認
+   - キャッシュのクリア
+   ```
+
+2. LocalStorage問題
+   ```javascript
+   // データのクリア
+   localStorage.clear();
+   
+   // データの初期化
+   localStorage.setItem('todos', '[]');
+   ```
+
+## 開発フロー
+
+1. Issue作成
+   - 機能追加や修正の提案
+   - バグ報告
+
+2. ブランチ作成
+   ```
+   feature/add-xxx
+   fix/issue-xxx
+   ```
+
+3. 開発作業
+   - コードの編集
+   - コミット
+   - プッシュ
+
+4. プルリクエスト
+   - レビュー依頼
+   - 議論
+   - マージ
