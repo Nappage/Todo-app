@@ -9,6 +9,42 @@
 - シンプルな技術スタック
 - ローカル環境構築不要
 
+## GitHub機能活用計画
+
+### Phase 1: 基本セットアップ（優先実装）
+1. GitHub Pages
+   - 静的サイトホスティング
+   - デプロイの自動化
+
+2. GitHub Projects（カンバンボード）
+   - タスク管理の可視化
+   - 作業の進捗追跡
+
+3. Branch Protection Rules
+   - mainブランチの保護
+   - レビュープロセスの強制
+
+4. Basic GitHub Actions
+   - CI/CDパイプラインの構築
+   - 自動テストの実行
+
+### Phase 2: 拡張機能（次のステップ）
+1. Issue Templates
+   - 標準化された課題報告
+   - 機能要望のテンプレート
+
+2. PR Templates
+   - レビュープロセスの標準化
+   - 変更内容の明確化
+
+3. Discussions
+   - チーム内コミュニケーション
+   - ドキュメントの補完
+
+4. Security Policy
+   - セキュリティガイドライン
+   - 脆弱性報告プロセス
+
 ## 技術スタック
 - フロントエンド: HTML + CSS + Vanilla JavaScript
 - ホスティング: GitHub Pages
