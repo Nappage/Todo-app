@@ -4,92 +4,110 @@
 
 ```mermaid
 graph TD
-    Client[Webブラウザ] --> Frontend[Reactフロントエンド]
-    Frontend --> API[FastAPI Backend]
-    API --> DB[(PostgreSQL)]
+    A[ブラウザ] --> B[GitHub Pages]
+    B --> C[Static Files]
+    C --> D[localStorage]
+    C --> E[GitHub Issues API]
     
-    subgraph AWS Cloud
-        Frontend
-        API
-        DB
+    subgraph GitHub
+        B
+        E
     end
 ```
 
 ## 使用技術と選定理由
 
 ### フロントエンド
-- **React**: 
-  - コンポーネントベースの開発による保守性の向上
-  - 豊富なエコシステムとライブラリ
-  - TypeScriptによる型安全性
+- **HTML/CSS/JavaScript**
+  - シンプルで保守しやすい
+  - ブラウザネイティブの機能を活用
+  - 追加のビルド環境が不要
+  - CDNによるライブラリ利用が可能
 
-### バックエンド
-- **FastAPI**:
-  - 高速なパフォーマンス
-  - OpenAPI（Swagger）による自動ドキュメント生成
-  - Pythonの非同期サポート
-  - 型ヒントによる開発効率の向上
+### ホスティング
+- **GitHub Pages**
+  - 無料で利用可能
+  - 自動デプロイが容易
+  - 高い可用性
+  - HTTPSサポート
 
-### データベース
-- **PostgreSQL**:
-  - 信頼性と拡張性
-  - JSONBデータ型のサポート
-  - 豊富なインデックスオプション
+### データストレージ
+- **localStorage**
+  - クライアントサイドでの永続化
+  - オフライン対応が可能
+  - シンプルなAPI
 
-## コンポーネント間の関係
+- **GitHub Issues API**（オプション）
+  - バックアップ用途
+  - APIトークンのみで利用可能
+  - Markdownサポート
 
-### フロントエンド構成
-- **状態管理**: Redux Toolkit
-- **ルーティング**: React Router
-- **UIライブラリ**: Material-UI
-- **APIクライアント**: Axios
+## コンポーネント構成
 
-### バックエンド構成
-- **認証**: JWT
-- **ORM**: SQLAlchemy
-- **マイグレーション**: Alembic
-- **テスト**: pytest
+### フロントエンド
+```
+src/
+├── index.html      # メインHTML
+├── css/
+│   └── style.css   # スタイル定義
+└── js/
+    ├── app.js      # メインアプリケーション
+    ├── storage.js  # データ永続化
+    └── ui.js       # UI操作
+```
 
-## API設計概要
+### データモデル
 
-### RESTful API
-- エンドポイントは`/api/v1/`をプレフィックスとする
-- リソースベースのURL設計
-- HTTPメソッドの適切な使用
-
-### GraphQL API
-- `/graphql`エンドポイントで提供
-- N+1問題を考慮したリゾルバー設計
-
-## データモデル
-
-### タスクモデル
-```typescript
+```javascript
+// タスクモデル
 interface Task {
-  id: string;
-  title: string;
-  description: string;
-  status: 'TODO' | 'IN_PROGRESS' | 'DONE';
-  dueDate: Date;
-  priority: 'LOW' | 'MEDIUM' | 'HIGH';
-  tags: string[];
-  createdAt: Date;
-  updatedAt: Date;
-  userId: string;
+    id: string;            // ユニークID
+    title: string;         // タスクタイトル
+    completed: boolean;    // 完了状態
+    createdAt: string;     // 作成日時
+    updatedAt: string;     // 更新日時
 }
 ```
 
-### ユーザーモデル
-```typescript
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  preferences: {
-    theme: 'light' | 'dark';
-    notifications: boolean;
-  };
-  createdAt: Date;
-  updatedAt: Date;
+## APIインターフェース
+
+### localStorage API
+```javascript
+// 保存
+localStorage.setItem('todos', JSON.stringify(todos));
+
+// 取得
+const todos = JSON.parse(localStorage.getItem('todos')) || [];
+```
+
+### GitHub Issues API（オプション）
+```javascript
+// Issue作成
+POST /repos/{owner}/{repo}/issues
+{
+    "title": "Task: Buy groceries",
+    "body": "- [ ] Milk\n- [ ] Bread",
+    "labels": ["todo"]
+}
+
+// Issue更新
+PATCH /repos/{owner}/{repo}/issues/{issue_number}
+{
+    "state": "closed"
 }
 ```
+
+## セキュリティ考慮事項
+1. クライアントサイドの制限
+   - センシティブなデータは扱わない
+   - XSS対策の実施
+
+2. GitHub Issues API
+   - 読み取り専用トークンの使用
+   - トークンの適切な管理
+
+## パフォーマンス最適化
+1. 静的アセットの最小化
+2. キャッシュの活用
+3. レスポンシブ対応
+4. 遅延読み込みの実装
