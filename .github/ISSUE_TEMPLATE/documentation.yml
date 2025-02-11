@@ -1,0 +1,50 @@
+name: ドキュメント更新
+description: ドキュメントの追加・修正
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ドキュメントの改善提案ありがとうございます。以下の情報を記入してください。
+
+  - type: input
+    id: target
+    attributes:
+      label: 対象ドキュメント
+      description: 更新が必要なドキュメントのパスや名称
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: 更新の種類
+      options:
+        - 新規追加
+        - 既存の修正
+        - 削除
+        - リファクタリング
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 更新内容
+      description: どのような更新が必要か説明してください
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: 更新の理由
+      description: なぜこの更新が必要か説明してください
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 補足情報
+      description: 参考情報や関連情報があれば記載してください
